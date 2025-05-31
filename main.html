@@ -1,21 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tarefas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #0044cc, #000);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .botoes {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #ffffff;
+      color: #000;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #ddd;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1 id="nome">Tenta trocar isso aqui</h1>
-        <h1 id="nome2">hahah</h1>
-    </header>    
-        <script>
-        let lista = ["valor1","valor2","valor3"];
-        console.log(lista[0]);
+  <h1>Lista de Tarefas</h1>
+  <input type="text" id="tarefa" placeholder="Digite sua tarefa...">
+  <div class="botoes">
+    <button onclick="adicionarTarefa()">Adicionar</button>
+    <button onclick="removerTarefa()">Remover</button>
+    <button onclick="limparTarefas()">Limpar</button>
+    <button onclick="definirPrioridade()">Definir Prioridade</button>
+  </div>
 
-        teste = document.querySelector("#nome");
-        teste.textContent="mudei favela!!!";
-    </script>
+  <ul id="lista" style="margin-top: 20px;"></ul>
+
+  <script>
+    function adicionarTarefa() {
+      const input = document.getElementById("tarefa");
+      const valor = input.value.trim();
+      if (valor) {
+        const li = document.createElement("li");
+        li.textContent = valor;
+        document.getElementById("lista").appendChild(li);
+        input.value = "";
+      }
+    }
+
+    function removerTarefa() {
+      const lista = document.getElementById("lista");
+      if (lista.lastChild) {
+        lista.removeChild(lista.lastChild);
+      }
+    }
+
+    function limparTarefas() {
+      document.getElementById("lista").innerHTML = "";
+    }
+
+    function definirPrioridade() {
+      const lista = document.getElementById("lista");
+      if (lista.firstChild) {
+        lista.firstChild.style.color = "yellow";
+        lista.firstChild.style.fontWeight = "bold";
+      }
+    }
+  </script>
 </body>
 </html>
