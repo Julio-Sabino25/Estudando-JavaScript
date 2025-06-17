@@ -1,0 +1,125 @@
+/*Variáveis Globais*/
+let lista = []
+let validador= 0
+
+/*Funções Simples*/
+
+function adicionar_inicio(lista){
+  let produto=prompt(`qual produto deseja incluir?`);
+  let preco=parseFloat(prompt(`qual o valor do produto ${produto}?`));
+  let categoria=prompt(`qual a categoria do produto ${produto}?`);
+  lista.splice(0 ,0 ,{produto,preco,categoria});
+  return lista
+};
+
+function adicionar_final(lista){
+  let produto=prompt(`qual produto deseja incluir?`);
+  let preco=parseFloat(prompt(`qual o valor do produto ${produto}?`));
+  let categoria=prompt(`qual a categoria do produto ${produto}?`);
+  lista.splice(lista.length,0,{produto ,preco ,categoria});
+  return lista
+};
+
+function apagar_lista(lista){
+  lista.splice(0,lista.length)
+  return lista
+};
+
+function modificar(lista){
+  let retira = parseInt(prompt("Qual indice do item que deseja trocar?"))
+  let npreco = parseFloat(prompt("Qual o novo preço?"))
+  lista[retira-1].preco=npreco
+  return lista
+};
+
+function mostrar(lista){
+  lista.forEach((element, index) => {
+  console.log(`${index+1}- Nome: ${element.produto}, Preço:R$ ${element.preco}, categoria ${element.categoria}`)})
+  return lista
+}
+
+
+function apagar_item_lista(lista,apaga){
+  lista.splice(apaga-1,1)
+  return lista
+};
+
+function qtd_de_itens(){
+  let qtd = parseInt(prompt("quantos itens serão inclusos?"))
+  return qtd
+};
+
+function menu(){
+  let escolha= parseInt(prompt("qual ação deseja? \n1-incluir a lista \n2-remover item \n3-alterar item \n4-zerar lista\n5-ver lista\n6-sair"))
+  return escolha
+} 
+
+/*Funçoes compostas*/
+
+function log_add_item(lista){
+  let vl = qtd_de_itens()
+  for(let i = 0; i<vl; i++){
+    let opcao = parseInt(prompt("Onde será incluso o item? \n1-inicio \n2-final")) 
+    switch(opcao){
+      case 1:
+        lista = adicionar_inicio(lista)
+        break;
+      case 2:
+        lista = adicionar_final(lista)
+        break;
+      default:
+        console.log("Opção inválida")
+        break;
+     }
+   }
+  return lista
+};
+
+function retirar_item(lista){
+  let apaga = parseInt(prompt("Qual indice do item que deseja apagar?"))
+  if(Number.isInteger(apaga)){
+    lista=apagar_item_lista(lista,apaga)
+    return lista
+  }else{
+    console.log("Opção inválida")
+  }
+};
+
+function atualizar_valor(lista){
+  let opcao = parseInt(prompt("Qual indice do produto que deseja atualizar?"))
+  if(Number.isInteger(opcao)){
+    let valor = parseFloat(prompt(`qual novo valor do produto ${lista[opcao-1].produto}?`))
+    lista[opcao-1].preco=valor
+  }else{
+    console.log("opção inválida!!")
+  }
+  return lista
+};
+
+/*Programa principal*/
+
+while(validador!=6){
+  validador = menu()
+  switch(validador){
+      case 1:
+      log_add_item(lista)
+      break;
+      case 2:
+      retirar_item(lista)
+      break;
+      case 3:
+      atualizar_valor(lista)
+      break;
+      case 4:
+      apagar_lista(lista)
+      break;
+      case 5:
+      mostrar(lista)
+      break;
+      case 6:
+      console.log("Encerrando...")
+      break;
+      default:
+      console.log("opção inválida...")
+  }
+};
